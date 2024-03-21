@@ -25,9 +25,9 @@ class MenuHome extends StatelessWidget {
           ),
           shadows: [
             BoxShadow(
-              color: Color(0x14000000),
-              blurRadius: 25,
-              offset: Offset(8, 4),
+              color: Colors.yellow,
+              blurRadius: 10,
+              offset: Offset(4, 2),
               spreadRadius: 0,
             )
           ],

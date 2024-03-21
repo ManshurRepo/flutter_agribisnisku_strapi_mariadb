@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_agribisnisku/core/extensions/build_context_ext.dart';
+import 'package:flutter_agribisnisku/data/datasources/auth_local_datasource.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/components/button.dart';
@@ -32,16 +34,15 @@ class _LoginPageState extends State<LoginPage> {
       body: ListView(
         padding: const EdgeInsets.all(15.0),
         children: [
-          const SizedBox(height: 100.0),
+          const SizedBox(height: 10.0),
           Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 100.0),
+              padding: const EdgeInsets.symmetric(vertical: 10.0),
               child: Image.asset(
                 "assets/images/logo.png",
-                width: 150,
-                height: 150,
-
+                width: 70,
+                height: 200,
               )),
-          const SizedBox(height: 10.0),
+          // const SizedBox(height: 5.0),
           const Center(
             child: Text(
               "AGRIBisnis Ku",
@@ -52,7 +53,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
           ),
-          const SizedBox(height: 60.0),
+          const SizedBox(height: 10.0),
           const Center(
             child: Text("Masuk untuk melanjutkan ",
                 style: TextStyle(
@@ -78,25 +79,20 @@ class _LoginPageState extends State<LoginPage> {
               state.maybeWhen(
                   orElse: () {},
                   success: (data) {
+                    AuthLocalDatasource().saveAuthData(data);
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
                         content: Text(
                           'Login Succes',
                           style: TextStyle(
-                              color: Colors.black,
+                              color: Colors.white,
                               fontSize: 15,
                               fontWeight: FontWeight.w600),
                         ),
                         backgroundColor: Colors.green,
                       ),
                     );
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const HomePage(),
-
-                      ),
-                    );
+                    context.pushReplacement(const HomePage());
                   },
                   error: (message) {
                     ScaffoldMessenger.of(context).showSnackBar(

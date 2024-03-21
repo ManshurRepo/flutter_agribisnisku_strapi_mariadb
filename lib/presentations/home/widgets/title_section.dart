@@ -4,12 +4,10 @@ import 'package:flutter/material.dart';
 
 class TitleSection extends StatelessWidget {
   final String title;
-  final VoidCallback onSeeAllTap;
 
   const TitleSection({
     super.key,
     required this.title,
-    required this.onSeeAllTap,
   });
 
   @override
@@ -24,17 +22,6 @@ class TitleSection extends StatelessWidget {
             style: const TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.w700,
-            ),
-          ),
-          InkWell(
-            onTap: onSeeAllTap,
-            child: const Text(
-              'See all',
-              style: TextStyle(
-                color: Colors.blue,
-                fontSize: 14,
-                fontWeight: FontWeight.w500,
-              ),
             ),
           ),
         ],

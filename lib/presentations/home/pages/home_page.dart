@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_agribisnisku/core/assets/assets.gen.dart';
 import 'package:flutter_agribisnisku/presentations/business_profile/pages/business_profile.dart';
 import 'package:flutter_agribisnisku/presentations/product_target/page/product_page.dart';
-import '../../business_target/page/business_page.dart';
+import '../../business_target/pages/business_page.dart';
 import '../../marketing/pages/marketing_page.dart';
 import '../widgets/header_home.dart';
 import '../widgets/menu_home.dart';
@@ -39,10 +39,10 @@ class _HomePageState extends State<HomePage> {
       body: ListView(
         children: [
           const HeaderHome(),
-          const SizedBox(height: 40.0),
-          TitleSection(
+          const SizedBox(height: 15.0),
+          const TitleSection(
             title: 'Beranda',
-            onSeeAllTap: () {},
+            // onSeeAllTap: () {},
           ),
           const SizedBox(height: 16.0),
           GridView(
@@ -67,8 +67,8 @@ class _HomePageState extends State<HomePage> {
                 },
               ),
               MenuHome(
-                imagePath: Assets.images.logo.path,
-                label: 'Marketing Target',
+                imagePath: Assets.images.marketingTarget.path,
+                label: 'Marketing Plan',
                 onPressed: () {
                   Navigator.push(
                     context,
@@ -79,8 +79,8 @@ class _HomePageState extends State<HomePage> {
                 },
               ),
               MenuHome(
-                imagePath: Assets.images.logo.path,
-                label: 'Business Target',
+                imagePath: Assets.images.businessTarget.path,
+                label: 'Business Plan',
                 onPressed: () {
                   Navigator.push(
                     context,
@@ -91,8 +91,8 @@ class _HomePageState extends State<HomePage> {
                 },
               ),
               MenuHome(
-                imagePath: Assets.images.logo.path,
-                label: 'Product Target',
+                imagePath: Assets.images.produkTarget.path,
+                label: 'Product Plan',
                 onPressed: () {
                   Navigator.push(
                     context,
@@ -122,8 +122,9 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Colors.green,
+        selectedItemColor: Colors.lightGreen,
         onTap: _onItemTapped,
+        backgroundColor: Colors.white,
       ),
     );
   }

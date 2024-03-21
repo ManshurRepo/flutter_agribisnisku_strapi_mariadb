@@ -1,22 +1,17 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:flutter_agribisnisku/data/models/responses/business_profile_response_model.dart';
+
+import '../../../core/constants/variabels.dart';
 
 class BusinessProfileWidget extends StatelessWidget {
-  final String businessName;
-  final String logo;
-  final List<String> businessSectors;
-  final String businessValue;
-  final String aboutUs;
+  final BusinessProfile data;
 
-  const BusinessProfileWidget({
-    Key? key,
-    required this.businessName,
-    required this.logo,
-    required this.businessSectors,
-    required this.businessValue,
-    required this.aboutUs,
-  }) : super(key: key);
 
-  @override
+
+  const BusinessProfileWidget({Key? key, required this.data}) : super(key: key);
+
+ @override
   Widget build(BuildContext context) {
     return Card(
       elevation: 4,
@@ -26,41 +21,43 @@ class BusinessProfileWidget extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              businessName,
+            Center(
+            child : Text(
+              data.attributes.businessName,
               style: const TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
+
               ),
             ),
-            const SizedBox(height: 8),
+            ),
+            const SizedBox(height: 0),
             Center(
-              child: Image.asset(
-                logo,
-                width: 100,
-                height: 100,
+              child: Image.network(
+                '${Variables.baseUrl}${data.attributes.businessLogo.data.attributes.url}',
+                width: 220,
+                height: 200,
                 fit: BoxFit.contain,
               ),
             ),
-            const SizedBox(height: 8),
-            Wrap(
-              spacing: 4,
-              children: businessSectors.map((sector) {
-                return Chip(
-                  label: Text(sector),
-                );
-              }).toList(),
+            const SizedBox(height: 0),
+            const Text(
+              'Business Sector: ',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w800),
             ),
+            Text(data.attributes.businessSectors),
             const SizedBox(height: 8),
-            Text(
-              'About Us: $aboutUs',
-              style: const TextStyle(fontSize: 16),
+            const Text(
+              'About Us: ',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w800),
             ),
+            Text(data.attributes.aboutUs),
             const SizedBox(height: 8),
-            Text(
-              'Our Value: $businessValue',
-              style: const TextStyle(fontSize: 16),
+            const Text(
+              'Our Value:',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w800),
             ),
+            Text(data.attributes.businessValue),
           ],
         ),
       ),

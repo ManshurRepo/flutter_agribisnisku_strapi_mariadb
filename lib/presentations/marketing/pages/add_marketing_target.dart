@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_agribisnisku/data/models/requests/add_target_request_model.dart';
+import 'package:flutter_agribisnisku/presentations/marketing/bloc/add_target/add_target_bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AddMarketingTargetPage extends StatefulWidget {
   const AddMarketingTargetPage({Key? key}) : super(key: key);
@@ -41,7 +44,18 @@ class _AddMarketingTargetPageState extends State<AddMarketingTargetPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Add Target'),
+        title: const Text('Add Target', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
+        textAlign: TextAlign.center),
+        backgroundColor: Colors.lightGreen,
+        centerTitle: true,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          } ,
+          icon: const Icon(
+            Icons.arrow_back, color: Colors.white,
+          )
+        )
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -49,20 +63,42 @@ class _AddMarketingTargetPageState extends State<AddMarketingTargetPage> {
           children: [
             TextFormField(
               controller: _titleController,
-              decoration: InputDecoration(labelText: 'Title'),
+              decoration: const InputDecoration(labelText: 'Title'),
             ),
-            TextFormField(
-              controller: _categoryController,
-              decoration: InputDecoration(labelText: 'Category'),
+            // TextFormField(
+            //   controller: _categoryController,
+            //   decoration: InputDecoration(labelText: 'Category'),
+            // ),
+            DropdownButtonFormField<String>(
+              value: _categoryController.text.isNotEmpty
+                  ? _categoryController.text
+                  : null,
+              items: const [
+                DropdownMenuItem<String>(
+                  value: 'Kualitatif',
+                  child: Text('Kualitatif', style: TextStyle(fontWeight: FontWeight.normal),),
+                ),
+                DropdownMenuItem<String>(
+                  value: 'Kuantitatif',
+                  child: Text('Kuantitatif', style:  TextStyle(fontWeight: FontWeight.normal),
+                  ),
+                ),
+              ],
+              onChanged: (newValue) {
+                setState(() {
+                  _categoryController.text = newValue!;
+                });
+              },
+              decoration: const InputDecoration(labelText: 'Kategori'),
             ),
             TextFormField(
               controller: _weightController,
-              decoration: InputDecoration(labelText: 'Weight'),
+              decoration: const InputDecoration(labelText: 'Weight'),
               keyboardType: TextInputType.number,
             ),
             TextFormField(
               controller: _startDateController,
-              decoration: InputDecoration(labelText: 'Start Date'),
+              decoration: const InputDecoration(labelText: 'Start Date'),
               onTap: () async {
                 final DateTime? picked = await showDatePicker(
                   context: context,
@@ -71,6 +107,7 @@ class _AddMarketingTargetPageState extends State<AddMarketingTargetPage> {
                   lastDate: DateTime(2101),
                 );
                 if (picked != null)
+                  // ignore: curly_braces_in_flow_control_structures
                   setState(() {
                     _startDateController.text =
                         picked.toString().substring(0, 10);
@@ -79,7 +116,7 @@ class _AddMarketingTargetPageState extends State<AddMarketingTargetPage> {
             ),
             TextFormField(
               controller: _endDateController,
-              decoration: InputDecoration(labelText: 'End Date'),
+              decoration: const InputDecoration(labelText: 'End Date'),
               onTap: () async {
                 final DateTime? picked = await showDatePicker(
                   context: context,
@@ -87,29 +124,66 @@ class _AddMarketingTargetPageState extends State<AddMarketingTargetPage> {
                   firstDate: DateTime(2000),
                   lastDate: DateTime(2101),
                 );
-                if (picked != null)
+                if (picked != null) {
                   setState(() {
                     _endDateController.text =
                         picked.toString().substring(0, 10);
                   });
+                }
               },
             ),
             TextFormField(
               controller: _descriptionController,
-              decoration: InputDecoration(labelText: 'Description'),
+              decoration: const InputDecoration(labelText: 'Description'),
               maxLines: null,
             ),
-            SizedBox(height: 16.0),
-            ElevatedButton(
-              onPressed: () {
-                
+            const SizedBox(height: 16.0),
+            BlocListener<AddTargetBloc, AddTargetState>(
+              listener: (context, state) {
+                state.maybeWhen(
+                  loaded: (_) {
+                    Navigator.pop(context);
+                  },
+                  orElse: () {},
+                );
               },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.green
+              child: BlocBuilder<AddTargetBloc, AddTargetState>(
+                builder: (context, state) {
+                  return state.maybeWhen(
+                    orElse: () => ElevatedButton(
+                      onPressed: () {
+                        final model = AddTargetRequestModel(
+                          data: Data(
+                            title: _titleController.text,
+                            category: _categoryController.text,
+                            weight: int.parse(_weightController.text),
+                            startDate:
+                                DateTime.parse(_startDateController.text),
+                            endDate: DateTime.parse(_endDateController.text),
+                            description: _descriptionController.text,
+                          ),
+                        );
+                        context.read<AddTargetBloc>().add(
+                              AddTargetEvent.addMarketingTarget(model),
+                            );
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.yellow,
+                      ),
+                      child: const Text(
+                        'Submit',
+                        style: TextStyle(color: Colors.black),
+                      ),
+                    ),
+                    loading: () {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    },
+                  );
+                },
               ),
-              child: const Text('Submit', style: TextStyle(color: Colors.white),),
             ),
-
           ],
         ),
       ),

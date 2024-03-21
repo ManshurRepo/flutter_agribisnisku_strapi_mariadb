@@ -15,7 +15,6 @@ class _ProfilePageState extends State<ProfilePage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Profile Page',style: TextStyle(color: Colors.white),),
-        // Tambahkan icon panah untuk kembali ke halaman sebelumnya
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.white,),
           onPressed: () {

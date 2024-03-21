@@ -81,7 +81,7 @@ class Attributes {
   factory Attributes.fromMap(Map<String, dynamic> json) => Attributes(
         title: json["title"],
         category: json["category"],
-        weight: json["weight"],
+        weight: json["weight"] as int,
         startDate: DateTime.parse(json["start_date"]),
         endDate: DateTime.parse(json["end_date"]),
         createdAt: DateTime.parse(json["createdAt"]),
@@ -157,3 +157,4 @@ class Pagination {
         "total": total,
       };
 }
+

@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:dartz/dartz.dart';
 
 import '../../core/constants/variabels.dart';
@@ -8,17 +10,18 @@ import 'package:http/http.dart' as http;
 class AuthRemoteDatasource {
   Future<Either<String, LoginResponseModel>> login(
       LoginRequestModel data) async {
-    final headers = {'Content-Type': 'application/json'};
-    final response = await http.post(
-      Uri.parse('${Variables.baseUrl}/api/auth/local'),
+    final response =
+    await http.post(Uri.parse('${Variables.baseUrl}/api/auth/local'),
+      headers: <String, String> {
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
       body: data.toJson(),
-      headers: headers,
     );
-
+    print(response.body);
     if (response.statusCode == 200) {
-      return right(LoginResponseModel.fromJson(response.body));
+      return Right(LoginResponseModel.fromJson(response.body));
     } else {
-      return left('Login Gagal');
+      return const Left('Login Gagal');
     }
   }
 }

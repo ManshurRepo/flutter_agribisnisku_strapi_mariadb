@@ -12,11 +12,53 @@ import 'package:flutter/widgets.dart';
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
+  /// File path: assets/images/business target.jpg
+  AssetGenImage get businessTarget =>
+      const AssetGenImage('assets/images/business target.jpg');
+
   /// File path: assets/images/logo.png
   AssetGenImage get logo => const AssetGenImage('assets/images/logo.png');
 
+  /// File path: assets/images/marketing target.jpg
+  AssetGenImage get marketingTarget =>
+      const AssetGenImage('assets/images/marketing target.jpg');
+
+  /// File path: assets/images/memamen_onboarding.png
+  AssetGenImage get memamenOnboarding =>
+      const AssetGenImage('assets/images/memamen_onboarding.png');
+
+  /// File path: assets/images/menanam_onboarding.png
+  AssetGenImage get menanamOnboarding =>
+      const AssetGenImage('assets/images/menanam_onboarding.png');
+
+  /// File path: assets/images/merawat_onboarding.png
+  AssetGenImage get merawatOnboarding =>
+      const AssetGenImage('assets/images/merawat_onboarding.png');
+
+  /// File path: assets/images/onboarding_join_us.png
+  AssetGenImage get onboardingJoinUs =>
+      const AssetGenImage('assets/images/onboarding_join_us.png');
+
+  /// File path: assets/images/produk target.jpg
+  AssetGenImage get produkTarget =>
+      const AssetGenImage('assets/images/produk target.jpg');
+
+  /// File path: assets/images/profil_pict.jpg
+  AssetGenImage get profilPict =>
+      const AssetGenImage('assets/images/profil_pict.jpg');
+
   /// List of all assets
-  List<AssetGenImage> get values => [logo];
+  List<AssetGenImage> get values => [
+        businessTarget,
+        logo,
+        marketingTarget,
+        memamenOnboarding,
+        menanamOnboarding,
+        merawatOnboarding,
+        onboardingJoinUs,
+        produkTarget,
+        profilPict
+      ];
 }
 
 class Assets {
